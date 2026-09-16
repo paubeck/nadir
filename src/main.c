@@ -55,6 +55,7 @@ static void start_repl(void) {
     printf("type exit to quit\n\n");
 
     Interpreter* interp = interpreter_new();
+    interp->logger = init_logger("debug.log");
     char buffer[8192] = {0};
     char line[1024];
 

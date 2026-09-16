@@ -15,6 +15,6 @@ typedef struct Logger {
 } Logger;
 
 Logger* init_logger(const char* logger_file_name);
-static void log_message(Logger* logger, const char* action, const char* message);
+void log_message(Logger* logger, const char* action, const char* message);
 
 #endif

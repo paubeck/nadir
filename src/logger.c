@@ -1,6 +1,7 @@
 #include "logger.h"
 #include <stdio.h>
 #include <ast.h>
+#include "sobject.h"
 
 Logger* init_logger(const char* logger_file_name) {
     Logger* logger = malloc(sizeof(Logger));
@@ -11,14 +12,11 @@ Logger* init_logger(const char* logger_file_name) {
     return logger;
 }
 
-static void log_message(Logger* logger, const char* action, const char* message) {
+void log_message(Logger* logger, const char* action, const char* message) {
     if (!logger) {
         return;
     }
-
-    if(logger->logging_level == NONE) {
-        return;
-    }
+    Logger l = *logger; 
 
     FILE* file = fopen(logger->file_name, "a+");
 
@@ -27,6 +25,6 @@ static void log_message(Logger* logger, const char* action, const char* message)
     }
     char date_buf[64];
     format_timestamp(time(NULL), date_buf, sizeof(date_buf));
-
-    fprintf(file, "%s|%s|[%s]: %s", val_string(date_buf),action, logger->logging_level,  message);
+    char* time_stamp = val_string(date_buf).as.string_val;
+    fprintf(file, "%s|%s: %s", time_stamp, action, message);
 }

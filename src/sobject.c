@@ -463,7 +463,7 @@ static bool validate_sfdc_schema_rules(SObject* obj, char* err_buf, size_t err_s
 static time_t g_last_time_sec = 0;
 static char g_cached_date_buf[64] = {0};
 
-static void format_timestamp(time_t now, char* out, size_t out_sz) {
+void format_timestamp(time_t now, char* out, size_t out_sz) {
     if (now == g_last_time_sec && g_cached_date_buf[0] != '\0') {
         strncpy(out, g_cached_date_buf, out_sz - 1);
         out[out_sz - 1] = '\0';

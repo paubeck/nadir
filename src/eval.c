@@ -4,6 +4,7 @@
 // nadir runtime thingy
 
 #include "eval_internal.h"
+#include "logger.h"
 
 Interpreter* interpreter_new(void) {
     Interpreter* interp = (Interpreter*)malloc(sizeof(Interpreter));
@@ -426,6 +427,7 @@ Value interpreter_eval(Interpreter* interp, ASTNode* node, Environment* env) {
             interp->limits.dml_statements++;
             Value target = interpreter_eval(interp, node->as.dml.target, env);
             const char* op = node->as.dml.operation;
+            log_message(interp->logger, "DML_OPERATION", op);
             if (target.type == VAL_SOBJECT && target.as.sobject_val) {
                 interp->limits.dml_rows++;
                 if (string_equal_case(op, "insert") || string_equal_case(op, "upsert")) return mock_db_insert(target.as.sobject_val);

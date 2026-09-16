@@ -47,6 +47,8 @@ SObject* sobject_clone(SObject* src);
 void sobject_free(SObject* obj);
 const char* get_sfdc_prefix(const char* object_name);
 
+void format_timestamp(time_t now, char* out, size_t out_sz);
+
 // Bulk helpers. All of these exist purely to keep per-row work out of the
 // row loop; they are semantically identical to the scalar versions.
 void sobject_reserve_fields(SObject* obj, int capacity);
