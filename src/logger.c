@@ -16,7 +16,6 @@ void log_message(Logger* logger, const char* action, const char* message) {
     if (!logger) {
         return;
     }
-    Logger l = *logger; 
 
     FILE* file = fopen(logger->file_name, "a+");
 
