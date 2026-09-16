@@ -1,5 +1,5 @@
-#ifndef NADIR_LEXER_H
-#define NADIR_LEXER_H
+#ifndef NADIR_LOGGER_H
+#define NADIR_LOGGER_H
 
 typedef enum {
     NONE,
