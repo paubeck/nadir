@@ -9,6 +9,7 @@
 #include "ast.h"
 #include "env.h"
 #include "sobject.h"
+#include "logger.h"
 
 // method on an apex class
 typedef struct ApexMethod {
@@ -59,6 +60,7 @@ typedef struct Interpreter {
     bool return_flag;
     Value return_val;
     GovernorLimits limits;
+    Logger* logger;
 } Interpreter;
 
 Interpreter* interpreter_new(void);

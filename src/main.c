@@ -9,6 +9,7 @@
 #include "eval.h"
 #include "metadata.h"
 #include "nadir_daemon.h"
+# include "logger.h"
 
 static Value run_source(const char* source, Interpreter* interp, bool is_repl) {
     Lexer lexer;
@@ -166,8 +167,10 @@ static void start_repl(void) {
 }
 
 int main(int argc, char* argv[]) {
+    const char* log_file_name = "debug.log";
     if (argc > 1) {
         Interpreter* interp = interpreter_new();
+        interp->logger = init_logger(log_file_name);
         for (int i = 1; i < argc; i++) {
             if (strcmp(argv[i], "--init") == 0 || strcmp(argv[i], "init") == 0) {
                 const char* p = (i + 1 < argc) ? argv[++i] : ".";
