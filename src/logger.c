@@ -25,6 +25,6 @@ void log_message(Logger* logger, const char* action, const char* message) {
     }
     char date_buf[64];
     format_timestamp(time(NULL), date_buf, sizeof(date_buf));
-    char* time_stamp = val_string(date_buf).as.string_val;
-    fprintf(file, "%s|%s: %s", time_stamp, action, message);
+
+    fprintf(file, "%s|%s: %s", val_string(date_buf).as.string_val, action, message);
 }
