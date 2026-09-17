@@ -159,7 +159,8 @@ ApexMethod* find_method(Interpreter* interp, ApexClassDef* klass, const char* na
 }
 
 Value interpreter_eval(Interpreter* interp, ASTNode* node, Environment* env) {
-    if (!node || interp->return_flag) return val_null();
+    if (!interp || !node || interp->return_flag) return val_null();
+    log_node(interp->logger, node->type, node);
 
     switch (node->type) {
         case NODE_PROGRAM: {

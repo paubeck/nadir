@@ -16,5 +16,9 @@ typedef struct Logger {
 
 Logger* init_logger(const char* logger_file_name);
 void log_message(Logger* logger, const char* action, const char* message);
+void log_node(Logger* logger, const char* node_type, ASTNode* node);
+const char* get_expr_type_name(enum ASTNodeType type);
+const char* get_token_name(TokenType type);
+const char* get_node_type_name(enum ASTNodeType type);
 
 #endif

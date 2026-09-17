@@ -4,9 +4,11 @@
 // nadir runtime thingy
 
 #include "eval_internal.h"
+#include "logger.h"
 #include <ctype.h>
 
 Value eval_method_or_call(Interpreter* interp, ASTNode* node, Environment* env) {
+    log_message(interp->logger, "METHOD_INVOCATION", node->as.call.method_name);
     const char* method_name = node->as.call.method_name;
     ASTNode* callee_node = node->as.call.callee;
 
@@ -166,6 +168,7 @@ Value eval_method_or_call(Interpreter* interp, ASTNode* node, Environment* env) 
             ApexInstance* inst = target.as.instance_val;
             ApexMethod* m = find_method(interp, inst->klass, method_name);
             if (m && m->body) {
+                log_message(interp->logger, "INSTANCE_METHOD_CALL", method_name);
                 Environment* menv = env_new(inst->fields);
                 env_define(menv, "this", target);
                 for (int p = 0; p < m->param_count && p < node->as.call.args.count; p++) {
@@ -191,6 +194,7 @@ Value eval_method_or_call(Interpreter* interp, ASTNode* node, Environment* env) 
             ApexInstance* inst = this_val.as.instance_val;
             ApexMethod* m = find_method(interp, inst->klass, method_name);
             if (m && m->body) {
+                log_message(interp->logger, "IMPLICIT_METHOD_CALL", m->name);
                 Environment* menv = env_new(inst->fields);
                 env_define(menv, "this", this_val);
                 for (int p = 0; p < m->param_count && p < node->as.call.args.count; p++) {
